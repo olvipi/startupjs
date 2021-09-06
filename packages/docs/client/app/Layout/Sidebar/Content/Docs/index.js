@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo } from 'react'
-import { observer, useModel, useLocal } from 'startupjs'
+import { observer, u, useModel, useLocal } from 'startupjs'
 import { pathFor } from 'startupjs/app'
 import { useMedia, Menu, Collapse } from '@startupjs/ui'
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons'
@@ -12,15 +12,14 @@ const MenuItem = observer(function MenuItemComponent ({
   doc,
   docName,
   docPath,
-  nestingLevel,
-  superPath
+  nestingLevel
 }) {
   const [lang] = useLang()
   const { desktop } = useMedia()
   const $mainSidebar = useModel('_session.Sidebar.mainSidebar')
   const $openedCollapses = useModel('_session.SidebarCollapses')
 
-  const menuItemStyle = useMemo(() => ({ paddingLeft: nestingLevel * 24 }), [nestingLevel])
+  const menuItemStyle = useMemo(() => ({ paddingLeft: nestingLevel * u(3) }), [nestingLevel])
   const title = useMemo(() => getTitle(doc, lang), [doc, lang])
   const rootPath = useMemo(() => pathFor('docs:doc', { lang, path: docPath }), [lang, docPath])
 
@@ -96,7 +95,6 @@ const Docs = observer(function DocsComponent ({ docs, superPath, nestingLevel = 
           docName=docName
           docPath=getDocPath(docName)
           nestingLevel=nestingLevel
-          superPath=superPath
         )
   `
 })
